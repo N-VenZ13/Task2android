@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Create
@@ -20,7 +18,6 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -34,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.Magenta
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -46,45 +42,29 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import com.example.task2.R
 
-class RegisterScreen : Screen {
+class LoginScreen : Screen {
     @Composable
     override fun Content() {
 
     }
 
-
     @Composable
-    private fun RegisterScreenContent(
-        nama: String,
+    private fun LoginScreenContent(
         email: String,
         password: String,
-        noHp: Int,
-        alamat: String,
         onEmailChange: (String) -> Unit,
-        onPasswordChange: (String) -> Unit,
-        onNamaChange: (String) -> Unit,
-        onNoHpChange: (Int) -> Unit,
-        onAlamatChange: (String) -> Unit
-
+        onPasswordChange: (String) -> Unit
     ) {
-        var email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
-        var nama by remember { mutableStateOf("") }
-        var noHp by remember { mutableStateOf("") }
-        var alamat by remember { mutableStateOf("") }
         Scaffold { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
+            Column(modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.Start
-            ) {
+                horizontalAlignment = Alignment.Start) {
                 Spacer(modifier = Modifier.padding(top = 24.dp))
-                Text("Register", style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Bold))
-
+                Text("Login", style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Bold))
             }
-//
+
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -112,22 +92,7 @@ class RegisterScreen : Screen {
 
                 Spacer(modifier = Modifier.padding(top = 20.dp))
 
-                OutlinedTextField(
-                    value = nama, onValueChange = onNamaChange,
-                    placeholder = {
-                        Text(text = "Masukkan nama anda")
-                    },
-                    label = {
-                        Text(text = "nama")
-                    },
-                    leadingIcon = {
-                        Icon(Icons.Filled.Create, contentDescription = null)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp)
-                )
-                Spacer(modifier = Modifier.padding(4.dp))
+
 
                 OutlinedTextField(
                     value = email, onValueChange = onEmailChange,
@@ -146,45 +111,7 @@ class RegisterScreen : Screen {
                 )
                 Spacer(modifier = Modifier.padding(4.dp))
 
-                OutlinedTextField(
-                    value = noHp, onValueChange = { input ->
-                        // Hanya mengubah nomor jika input berupa angka
-                        if (input.all { it.isDigit() }) {
-                            noHp = input
-                            onNoHpChange(input.toInt())
-                        }
-                    },
-                    placeholder = {
-                        Text(text = "Masukkan noHp anda")
-                    },
-                    label = {
-                        Text(text = "noHp")
-                    },
-                    leadingIcon = {
-                        Icon(Icons.Filled.AccountBox, contentDescription = null)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp)
-                )
-                Spacer(modifier = Modifier.padding(4.dp))
 
-                OutlinedTextField(
-                    value = alamat, onValueChange = onAlamatChange,
-                    placeholder = {
-                        Text(text = "Masukkan alamat anda")
-                    },
-                    label = {
-                        Text(text = "alamat")
-                    },
-                    leadingIcon = {
-                        Icon(Icons.Filled.Place, contentDescription = null)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp)
-                )
-                Spacer(modifier = Modifier.padding(4.dp))
 
                 OutlinedTextField(
                     value = password, onValueChange = onPasswordChange,
@@ -208,60 +135,42 @@ class RegisterScreen : Screen {
                     onClick = {},
                     colors = ButtonDefaults.buttonColors(Magenta)
 
-                ) { Text("Submit") }
+                ) { Text("Login") }
+
+                Spacer(modifier = Modifier.padding(8.dp))
 
 
-            }
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "Sudah mempunyai akun? ")
+                    Text(text = "belum menjadi akun? ")
                     Text(
-                        text = "masuk",
+                        text = "daftar",
                         style = TextStyle(color = Color.Blue),
                         modifier = Modifier.clickable { })
                 }
                 Spacer(modifier = Modifier.padding(bottom = 20.dp))
 
+
             }
+
+
         }
     }
 
 
     @Preview
     @Composable
-    fun RegisterScreenContentPreview() {
+    fun LoginScreenContentPreview() {
         var email by remember {
             mutableStateOf("")
         }
         var password by remember {
             mutableStateOf("")
         }
-        var nama by remember {
-            mutableStateOf("")
-        }
-        var noHp by remember {
-            mutableStateOf(0)
-        }
-        var alamat by remember {
-            mutableStateOf("")
-        }
-        RegisterScreenContent(
+        LoginScreenContent(
             email = email,
             password = password,
-            nama = nama,
-            noHp = noHp,
-            alamat = alamat,
             onEmailChange = { email = it },
-            onPasswordChange = { password = it },
-            onNamaChange = { nama = it },
-            onAlamatChange = { alamat = it },
-            onNoHpChange = { noHp = it }
-
+            onPasswordChange = { password = it }
         )
     }
 
